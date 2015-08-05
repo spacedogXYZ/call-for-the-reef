@@ -1,0 +1,97 @@
+---
+facebook_title: Call For the Reef!
+facebook_description: ''
+twitter_text: ''
+email_subject: Call For the Reef!
+email_body: Hey, check out this site and call today! http://callforthereef.org/
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="{{page.facebook_description}}">
+    <meta name="author" content="SumOfUs">
+    <meta property="og:title" content="{{page.facebook_title}}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://www.callforthereef.org/"/>
+    <meta property="og:image" content="http://www.callforthereef.org/img/share.png"/>
+    <meta property="og:site_name" content="Call For the Reef"/>
+    <meta property="fb:admins" content="701690" />
+    <meta property="og:description" content="{{page.facebook_description}}"/>
+    
+
+    <link href="css/styles.css?t={{  site.time | date: '%s' }}" rel="stylesheet">
+
+    <title>Call For the Reef</title>
+
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/main.js?t={{  site.time | date: '%s' }}"></script>
+
+    {% include analytics.html %}
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+</head>
+<body>
+  <div id="wrapper">
+    <div class="container">
+
+      <div id="header" class="section">
+        <a href="http://sumofus.org/">
+          <img src="img/logo.png" class="logo" alt="SumOfUs">
+        </a>
+        <p class="tagline">Fighting for people over profits</p>
+      </div>
+
+      <div id="content">
+        <h3>Tell Standard Chartered not to fund the Destruction of the Reef!</h3>
+        {% include content.html %}
+
+        <form id="phoneForm" class="row">
+            <div class="two-thirds column">
+              <input id="phone" name="phone" class="u-full-width" placeholder="Enter Your Phone #" type="tel"/>
+            </div>
+            <div class="one-third column">
+              <button type="submit" class="button-primary">Call Me</button>
+            </div>
+        </form>
+
+        <p class="small">
+            If you enter your number above, <strong>we'll call you</strong> to connect you with the offices of Standard Chartered Bank.
+        </p>
+      </div>
+
+      <div class="overlay">
+        <div class="modal">
+          <div class="inner">
+              <a class="btn close">&times;</a>
+              {% include call_modal_top.html %}
+
+              <h2>Call Script</h2>
+              {% include call_script.html %}
+
+              <div class="button-row">
+                  <a class="btn facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://www.callforthereef.org">Facebook</a>
+                  <a class="btn twitter" target="_blank" href="https://twitter.com/intent/tweet?text={{page.twitter_text | uri_escape}}">Twitter</a>
+                  <a class="btn email" target="_blank" href="mailto:?Subject={{page.email_subject | uri_escape}}&Body={{page.email_body | uri_escape}}">Email</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer" class="container">
+    <ul class="iphone-hidden">
+      <li><a href="http://sumofus.org/">Home</a></li>
+      <li><a href="http://sumofus.org/about">About</a></li>
+      <li><a href="http://sumofus.org/privacy">Privacy Policy</a></li>
+      <li><a href="http://sumofus.org/contact">Contact</a></li>
+    </ul>
+    <p class="copyright">2015 SumOfUs, <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</p>
+  </div>
+
+</body>
+</html>

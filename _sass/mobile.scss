@@ -1,0 +1,7 @@
+.iphone-hidden { display: none; }
+
+@media only screen and (min-width: 605px) {
+  .iphone-hidden {
+    display: inline-block;
+  }
+}

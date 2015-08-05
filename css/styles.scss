@@ -1,0 +1,14 @@
+---
+# Main SCSS file 
+---
+
+@import "normalize";
+
+//Skeleton SASS variables
+$primary-color: #DC6134;
+$link-color: #04ACBE;
+
+@import "skeleton";
+@import "site";
+@import "overlay";
+@import "mobile";

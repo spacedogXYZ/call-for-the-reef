@@ -1,0 +1,70 @@
+body {
+	font-family: "myriad-pro", "Myriad Pro", "Myriad", Arial, sans-serif;
+	font-size: 14px;
+	color: #555555;
+	line-height: 1.4em;
+	text-shadow: 1px 1px 1px #fff;
+}
+
+a {
+	text-decoration: none;
+}
+
+.section {
+	clear: both;
+	width: 100%;
+}
+
+form .submit {
+	background: #dc6134;
+	color: #ffffff;
+	float: right;
+	font-size: 16px;
+	margin: 10px 0 0 0;
+	padding: 10px 20px;
+	width: auto;
+}
+
+#header {
+	padding-top: 10px;
+}
+
+#header .tagline {
+	display: inline-block;
+	left: 100px;
+	font-size: 20px;
+	padding: 15px 0 0 0;
+	font-style: italic;
+	position: absolute;
+}
+
+h1 {
+}
+
+.overlay {
+	display: none;
+}
+
+#footer {
+	padding-top: 25px;
+	border-top: 1px solid #d0d0d0;
+}
+
+#footer ul li {
+	float: left;
+	list-style: none;
+}
+
+#footer ul li a {
+	font-size: 18px;
+	font-weight: 700;
+	margin-right: 25px;
+	text-shadow: 1px 1px 1px #ffffff;
+	text-transform: uppercase;
+}
+
+#footer .copyright {
+	clear: both;
+	background: transparent url(../img/cc.png) 0 0 no-repeat;
+	padding: 0 0 10px 25px;
+}
