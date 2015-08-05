@@ -27,22 +27,32 @@ form .submit {
 
 #header {
 	padding: 10px 0;
+	background-color: rgb(4, 172, 190);
+	background-image: url(../img/bg-texture.gif);
+}
+
+#header a.logo {
+	background: white;
+	height: 100%;
+	display: inline-block;
+	padding: 10px;
+	text-align: center;
+	img { width: 75%; }
 }
 
 #header .tagline {
 	display: inline-block;
-	left: 100px;
+	left: 125px;
 	font-size: 20px;
 	padding: 15px 0 0 0;
 	font-style: italic;
 	position: absolute;
+	color: white;
+	text-shadow: 1px 1px 1px rgb(85, 85, 85);
 }
 
-h1 {
-}
-
-.overlay {
-	display: none;
+#content {
+	margin-top: 20px;
 }
 
 #footer {
