@@ -2,6 +2,7 @@ body {
 	font-family: "myriad-pro", "Myriad Pro", "Myriad", Arial, sans-serif;
 	font-size: 14px;
 	color: #555555;
+	background-color: #f3f3f3;
 	line-height: 1.4em;
 	text-shadow: 1px 1px 1px #fff;
 }
@@ -26,18 +27,14 @@ form .submit {
 }
 
 #header {
-	padding: 10px 0;
-	background-color: rgb(4, 172, 190);
-	background-image: url(../img/bg-texture.gif);
+	height: 50px;
 }
 
 #header a.logo {
-	background: white;
 	height: 100%;
 	display: inline-block;
-	padding: 10px;
 	text-align: center;
-	img { width: 75%; }
+	position: absolute;
 }
 
 #header .tagline {
@@ -46,17 +43,32 @@ form .submit {
 	font-size: 20px;
 	padding: 15px 0 0 0;
 	font-style: italic;
+	font-weight: bold;
 	position: absolute;
-	color: white;
-	text-shadow: 1px 1px 1px rgb(85, 85, 85);
+}
+
+#mast {
+	background: url(../img/mast.jpg) no-repeat center center; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+	h2 {
+		color: white;
+		text-shadow: 1px 1px 1px #555;
+		text-align: left;
+	    padding-top: 200px;
+	}
 }
 
 #content {
-	margin-top: 20px;
+	padding: 20px 40px 150px 40px;
+	background: white;
 }
 
 #footer {
-	padding-top: 25px;
+	padding: 40px 40px 0 40px;
 	border-top: 1px solid #d0d0d0;
 }
 
