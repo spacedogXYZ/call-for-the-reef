@@ -53,12 +53,22 @@ form .submit {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	min-height: 300px;
+
+	.wrapper {
+		padding-top: 300px;
+	}
+
+	.headline {
+		padding: 10px 10%;
+		background: rgba(0, 0, 0, 0.5);
+	}
 
 	h2 {
 		color: white;
+		margin: 0;
 		text-shadow: 1px 1px 1px #555;
 		text-align: left;
-	    padding-top: 200px;
 	}
 }
 
