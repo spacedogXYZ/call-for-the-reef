@@ -1,14 +1,38 @@
-function validatePhone(num) {
-        num = num.replace(/\s/g, '').replace(/\(/g, '').replace(/\)/g, '');
-        num = num.replace("+", "").replace(/\-/g, '');
+function cleanPhoneAUS(num) {
+    // remove country code
+    num = num.replace("+61", "");
+    // remove spaces, parens
+    num = num.replace(/\s/g, '').replace(/\(/g, '').replace(/\)/g, '');
+    // remove plus, dash
+    num = num.replace("+", "").replace(/\-/g, '');
 
-        if (num.charAt(0) == "1")
-            num = num.substr(1);
+    if (num.length != 10)
+        return false;
 
-        if (num.length != 10)
-            return false;
+    return num;
+}
 
-        return num;
+function checkPhoneInputAUS(input) {
+    $(this).next('.input-icon')
+        .removeClass('icon-mobile')
+        .removeClass('icon-phone')
+        .removeClass('icon-help-circled')
+        .removeClass('error')
+        .removeClass('valid');
+    $(this).siblings('.help-text').text('');
+
+    var val = cleanPhoneAUS($(this).val());
+    var isMobile = /^04[0-9, ]{1,10}$/.test(val);
+    var isLandline = /^0[^4][0-9, ]{1,9}$/.test(val);
+
+    if (isMobile) {
+        $(this).next('.input-icon').addClass('icon-mobile').addClass('valid');
+    } else if (isLandline) {
+        $(this).next('.input-icon').addClass('icon-phone').addClass('valid');
+    } else {
+        $(this).next('.input-icon').addClass('icon-help-circled').addClass('error');
+        $(this).siblings('.help-text').text('Please ensure this is a valid Australian phone number, with area code.');
+    }
 }
 
 function validateEmail(email) {
@@ -31,16 +55,20 @@ $(document).ready(function() {
             { '*': '{{**********}}' },
         ]
     });
+
+    $('input#phone').blur(checkPhoneInputAUS);
+
     $('#phoneForm').submit(function(e) {
         e.preventDefault();
-        var phone = $('#phone').val();
+        var phone = cleanPhoneAUS($('#phone').val());
 
-        if (!validatePhone(phone))
-            return alert('Please enter a valid phone number!');
+        if (!phone) {
+            return alert('Please enter a valid Australian phone number');
+        }
 
         var data = {
             campaignId: 'demo',
-            userPhone: validatePhone(phone),
+            userPhone: phone,
             zipcode: '00000'
         };
 

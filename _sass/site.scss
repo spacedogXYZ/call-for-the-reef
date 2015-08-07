@@ -77,6 +77,20 @@ form .submit {
 	background: white;
 }
 
+.input-wrapper {
+	position: relative;
+	input { width: 100%; }
+
+	.input-icon {
+		font-size: 20px;
+		position: absolute;
+		right: 5px;
+		top: 10px;
+	}
+	.error { color: red; }
+	.valid { color: green; }
+}
+
 #footer {
 	padding: 40px 40px 0 40px;
 	border-top: 1px solid #d0d0d0;
@@ -93,10 +107,4 @@ form .submit {
 	margin-right: 25px;
 	text-shadow: 1px 1px 1px #ffffff;
 	text-transform: uppercase;
-}
-
-#footer .copyright {
-	clear: both;
-	background: transparent url(../img/cc.png) 0 0 no-repeat;
-	padding: 0 0 10px 25px;
 }
