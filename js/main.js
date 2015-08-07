@@ -24,6 +24,13 @@ var trackEvent = function(ev) {
 };
 
 $(document).ready(function() {
+    $('input#phone').formatter({
+      'patterns': [
+            { '^04[0-9, ]{1,9}$': '{{9999}} {{999}} {{999}}' },
+            { '^0[^4][0-9, ]{1,9}$': '({{99}}) {{9999}} {{9999}}' },
+            { '*': '{{**********}}' },
+        ]
+    });
     $('#phoneForm').submit(function(e) {
         e.preventDefault();
         var phone = $('#phone').val();
