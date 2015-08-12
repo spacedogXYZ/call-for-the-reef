@@ -69,20 +69,14 @@ var trackEvent = function(ev) {
 };
 
 $(document).ready(function() {
-    // form prefill values from url params
-    var prefill_fields = ['name', 'phone', 'email'];
-    for (var i in prefill_fields) {
-        var field_name = prefill_fields[i];
-        var prefill_val = $.QueryString[field_name];
-        if (prefill_val) {
-            $('input[name='+field_name+']').val(prefill_val).trigger('blur');
-        }
-    }
-
-    // use akid as signal for new user
+    // form prefill
     var akid = $.QueryString.akid;
-    if (akid === undefined || akid === '') {
-        $('input#id_name').show();
+    if (akid !== undefined && akid !== '') {
+        $.getJSON('/prefill', {akid: akid}, function(data) {
+            for (var field in data) {
+                $('input[name='+field+']').val(data[field]);
+            }
+        });
     }
 
     // setup faq toggle
