@@ -1,3 +1,17 @@
+(function($) {
+    $.QueryString = (function(a) {
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i)
+        {
+            var p=a[i].split('=');
+            if (p.length != 2) continue;
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+    })(window.location.search.substr(1).split('&'))
+})(jQuery);
+
 function cleanPhoneAUS(num) {
     // remove country code
     num = num.replace("+61", "");
@@ -55,44 +69,79 @@ var trackEvent = function(ev) {
 };
 
 $(document).ready(function() {
+    // form prefill values from url params
+    var prefill_fields = ['name', 'phone', 'email'];
+    for (var i in prefill_fields) {
+        var field_name = prefill_fields[i];
+        var prefill_val = $.QueryString[field_name];
+        if (prefill_val) {
+            $('input[name='+field_name+']').val(prefill_val).trigger('blur');
+        }
+    }
+
+    // use akid as signal for new user
+    var akid = $.QueryString.akid;
+    if (akid === undefined || akid === '') {
+        $('input#id_name').show();
+    }
+
+    // setup faq toggle
     $('a#faq-toggle').click(function() {
         $('div.faq').slideToggle();
     });
 
-    $('input#phone').formatter({
+    // live AUS phone formatter
+    $('input#id_phone').formatter({
       'patterns': [
             { '^04[0-9, ]{1,9}$': '{{9999}} {{999}} {{999}}' },
             { '^0[^4][0-9, ]{1,9}$': '({{99}}) {{9999}} {{9999}}' },
             { '*': '{{**********}}' },
         ]
     });
+    $('input#id_phone').blur(checkPhoneInputAUS);
 
-    $('input#phone').blur(checkPhoneInputAUS);
-
-    $('#phoneForm').submit(function(e) {
+    // call form submit
+    $('#callForm').submit(function(e) {
         e.preventDefault();
 
-        $('input#phone').trigger('blur');
-        var phone = cleanPhoneAUS($('input#phone').val());
+        $('input#id_phone').trigger('blur');
+        var phone = cleanPhoneAUS($('input#id_phone').val());
 
-        if (!phone || !checkPhoneInputAUS($('input#phone'))) {
-            return $('input#phone').siblings('.help-text').text('Please enter an Australian phone number');
+        if (!phone || !checkPhoneInputAUS($('input#id_phone'))) {
+            return $('input#id_phone').siblings('.help-text').text('Please enter an Australian phone number');
         }
 
-        var data = {
+        // submit to actionkit
+        $.ajax({
+            url: 'https://act.sumofus.org/rest/v1/action/',
+            type: 'post',
+            dataType: 'json',
+            data: $('#callForm').serialize(),
+            success: function(response) {
+                console.log(response);
+                trackEvent('ak-signup');
+            },
+            error: function(xhr, status, message) {
+                console.error(status, message);
+            }
+        });
+
+        // submit to call power
+        var callData = {
             campaignId: 2,
             userPhone: phone
         };
-
-        // $.ajax({
-        //     url: 'http://sumofus.callpower.org/call/create',
-        //     type: "get",
-        //     dataType: "json",
-        //     data: data,
-        //     success: function(res) {
-        //         trackEvent('call-power');
-        //     }
-        // });
+        /*
+        $.ajax({
+            url: 'http://sumofus.callpower.org/call/create',
+            type: "get",
+            dataType: "json",
+            data: callData,
+            success: function(response) {
+                trackEvent('call-placed');
+            }
+        });
+        */
         $('.overlay').css('display', 'table');
         setTimeout(function() {
             $('.overlay').addClass('visible');
@@ -102,7 +151,8 @@ $(document).ready(function() {
         }, 100);
     });
 
-    $('.close').click(function() {
+    $('.overlay .close').click(function() {
       $('.overlay').css('display','none');
     });
+    
 });

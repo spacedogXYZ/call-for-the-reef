@@ -38,7 +38,7 @@ a {
 }
 
 #mast {
-	background: url(../img/mast.jpg) no-repeat center center; 
+	background: url('/static/img/mast.jpg') no-repeat center center; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -67,18 +67,18 @@ a {
 	background: white;
 }
 
-#phoneForm {
+#callForm {
 	border: 1px solid #04ACBE;
 	border-radius: 4px;
 	padding: 25px 40px 25px 40px;
 }
 
-#phoneForm input {
+#callForm input {
 	height: 48px;
 	font-size: 20px;
 }
 
-#phoneForm button {
+#callForm button {
 	height: 47px;
 	font-size: 20px;
 	text-transform: uppercase;
@@ -118,10 +118,10 @@ a {
 	text-indent: -999em;
 
 	&.facebook {
-		background: url(../img/share-facebook.png) 0 0 no-repeat;
+		background: url('/static/img/share-facebook.png') 0 0 no-repeat;
 	}
 	&.twitter { 
-		background: url(../img/share-twitter.png) 0 0 no-repeat;
+		background: url('/static/img/share-twitter.png') 0 0 no-repeat;
 	}
 }
 
