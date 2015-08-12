@@ -1,17 +1,3 @@
-(function($) {
-    $.QueryString = (function(a) {
-        if (a == "") return {};
-        var b = {};
-        for (var i = 0; i < a.length; ++i)
-        {
-            var p=a[i].split('=');
-            if (p.length != 2) continue;
-            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-        }
-        return b;
-    })(window.location.search.substr(1).split('&'))
-})(jQuery);
-
 function cleanPhoneAUS(num) {
     // remove country code
     num = num.replace("+61", "");
@@ -105,37 +91,20 @@ $(document).ready(function() {
             return $('input#id_phone').siblings('.help-text').text('Please enter an Australian phone number');
         }
 
-        // submit to actionkit
         $.ajax({
-            url: 'https://act.sumofus.org/rest/v1/action/',
+            url: '/submit',
             type: 'post',
             dataType: 'json',
             data: $('#callForm').serialize(),
             success: function(response) {
                 console.log(response);
-                trackEvent('ak-signup');
+                trackEvent('call-placed');
             },
             error: function(xhr, status, message) {
                 console.error(status, message);
             }
         });
 
-        // submit to call power
-        var callData = {
-            campaignId: 2,
-            userPhone: phone
-        };
-        /*
-        $.ajax({
-            url: 'http://sumofus.callpower.org/call/create',
-            type: "get",
-            dataType: "json",
-            data: callData,
-            success: function(response) {
-                trackEvent('call-placed');
-            }
-        });
-        */
         $('.overlay').css('display', 'table');
         setTimeout(function() {
             $('.overlay').addClass('visible');

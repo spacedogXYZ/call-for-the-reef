@@ -15,21 +15,18 @@
     <meta property="fb:admins" content="701690" />
     <meta property="og:description" content=""/>
     
+    <title>Call For the Reef</title>
 
     {% assets "scss_all" %}
     <link rel="stylesheet" type=text/css href="{{ ASSET_URL }}">
     {% endassets %}
-
-    <title>Call For the Reef</title>
-
-    <script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.formatter.min.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
-
+    {% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     <script src="//c.shpg.org/99/sp.js"></script>
 
     {% include '_includes/analytics.html' %}
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="/static/img/favicon.ico">
 
 </head>
 <body>
