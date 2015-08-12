@@ -84,8 +84,12 @@ email_body: Hey, check out this site and call today! http://callforthereef.org/
         </form>
 
         <p class="small">
-            If you enter your number above, <strong>we'll call you</strong> to connect you with the Environment Minister's offices.
+            If you enter your number above, <strong>we'll call you</strong> to connect you with the Environment Minister's offices.<br>
+            Your call may only be answered Mon-Fri 9am-5pm.
         </p>
+
+        <h6><a id="faq-toggle"><em>Questions about the Call?</em></a></h6>
+          <div class="faq" style="display:none;">{%include faq.html %}</div>
       </div>
 
       <div class="overlay">
@@ -95,7 +99,7 @@ email_body: Hey, check out this site and call today! http://callforthereef.org/
               {% include call_modal_top.html %}
               {% include call_script.html %}
 
-              <div class="button-row">
+              <div class="row share">
                   <a class="btn facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://www.callforthereef.org">Facebook</a>
                   <a class="btn twitter" target="_blank" href="https://twitter.com/intent/tweet?text={{page.twitter_text | uri_escape}}">Twitter</a>
                   <a class="btn email" target="_blank" href="mailto:?Subject={{page.email_subject | uri_escape}}&Body={{page.email_body | uri_escape}}">Email</a>

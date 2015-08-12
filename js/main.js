@@ -6,32 +6,39 @@ function cleanPhoneAUS(num) {
     // remove plus, dash
     num = num.replace("+", "").replace(/\-/g, '');
 
-    if (num.length != 10)
+    if (!parseInt(num) || (num.length != 10)) {
         return false;
+    }
 
     return num;
 }
 
-function checkPhoneInputAUS(input) {
-    $(this).next('.input-icon')
+function checkPhoneInputAUS(param) {
+    // let this function be used for events and direct inputs
+    input = param.target ? $(param.target): param;
+
+    input.next('.input-icon')
         .removeClass('icon-mobile')
         .removeClass('icon-phone')
         .removeClass('icon-help-circled')
         .removeClass('error')
         .removeClass('valid');
-    $(this).siblings('.help-text').text('');
+    input.siblings('.help-text').text('');
 
-    var val = cleanPhoneAUS($(this).val());
+    var val = cleanPhoneAUS(input.val());
     var isMobile = /^04[0-9, ]{1,10}$/.test(val);
     var isLandline = /^0[^4][0-9, ]{1,9}$/.test(val);
 
     if (isMobile) {
-        $(this).next('.input-icon').addClass('icon-mobile').addClass('valid');
+        input.next('.input-icon').addClass('icon-mobile').addClass('valid');
+        return true;
     } else if (isLandline) {
-        $(this).next('.input-icon').addClass('icon-phone').addClass('valid');
+        input.next('.input-icon').addClass('icon-phone').addClass('valid');
+        return true;
     } else {
-        $(this).next('.input-icon').addClass('icon-help-circled').addClass('error');
-        $(this).siblings('.help-text').text('Please ensure this is a valid Australian phone number, with area code.');
+        input.next('.input-icon').addClass('icon-help-circled').addClass('error');
+        input.siblings('.help-text').text('Please ensure this is a valid Australian phone number, with area code.');
+        return false;
     }
 }
 
@@ -48,6 +55,10 @@ var trackEvent = function(ev) {
 };
 
 $(document).ready(function() {
+    $('a#faq-toggle').click(function() {
+        $('div.faq').slideToggle();
+    });
+
     $('input#phone').formatter({
       'patterns': [
             { '^04[0-9, ]{1,9}$': '{{9999}} {{999}} {{999}}' },
@@ -60,10 +71,12 @@ $(document).ready(function() {
 
     $('#phoneForm').submit(function(e) {
         e.preventDefault();
-        var phone = cleanPhoneAUS($('#phone').val());
 
-        if (!phone) {
-            return alert('Please enter a valid Australian phone number');
+        $('input#phone').trigger('blur');
+        var phone = cleanPhoneAUS($('input#phone').val());
+
+        if (!phone || !checkPhoneInputAUS($('input#phone'))) {
+            return $('input#phone').siblings('.help-text').text('Please enter an Australian phone number');
         }
 
         var data = {

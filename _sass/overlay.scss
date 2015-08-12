@@ -7,7 +7,6 @@
     z-index: 900001; /* it... can't... be... */
     background: rgba(0, 0, 0, .8);
     display: table;
-    text-align: center;
     opacity: 0;
     -ms-transition: opacity .5s ease-in;
     -o-transition: opacity .5s ease-in;
@@ -66,4 +65,12 @@
     margin-top: 20px;
     border-top: 1px solid #aaa;
     margin-left: -40px;
+}
+
+.overlay h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+.overlay .btn.close {
+    float: right;
 }

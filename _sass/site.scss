@@ -16,24 +16,6 @@ a {
 	width: 100%;
 }
 
-#phoneForm {
-	border: 1px solid #04ACBE;
-	border-radius: 4px;
-	padding: 25px 40px 25px 40px;
-}
-
-#phoneForm input {
-	height: 48px;
-	font-size: 20px;
-}
-
-#phoneForm button {
-	height: 47px;
-	font-size: 20px;
-	text-transform: uppercase;
-	text-shadow: 1px 1px 1px #aaa;
-}
-
 #header {
 	height: 50px;
 }
@@ -85,6 +67,24 @@ a {
 	background: white;
 }
 
+#phoneForm {
+	border: 1px solid #04ACBE;
+	border-radius: 4px;
+	padding: 25px 40px 25px 40px;
+}
+
+#phoneForm input {
+	height: 48px;
+	font-size: 20px;
+}
+
+#phoneForm button {
+	height: 47px;
+	font-size: 20px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 1px #aaa;
+}
+
 .input-wrapper {
 	position: relative;
 	input { width: 100%; }
@@ -97,6 +97,32 @@ a {
 	}
 	.error { color: red; }
 	.valid { color: green; }
+}
+
+.faq {
+	border-top: 1px solid #d0d0d0; 
+	padding-top: 20px;
+}
+
+.script {
+	text-align: left;
+	font-family: monospace;
+}
+
+.share .btn {
+	display: inline-block;
+	margin: 0 20px;
+	padding: 0;
+	width: 200px;
+	height: 60px;
+	text-indent: -999em;
+
+	&.facebook {
+		background: url(../img/share-facebook.png) 0 0 no-repeat;
+	}
+	&.twitter { 
+		background: url(../img/share-twitter.png) 0 0 no-repeat;
+	}
 }
 
 #footer {
