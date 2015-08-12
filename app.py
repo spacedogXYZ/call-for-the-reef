@@ -1,16 +1,59 @@
-from flask import Flask, render_template
+import os
+import requests
+
+from flask import Flask, request, abort, jsonify, render_template
 from flask.ext.assets import Environment, Bundle
 
 app = Flask(__name__)
+
+# actionkit
+app.actionkit_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_PASSWORD'))
+
+# assets
 assets = Environment(app)
 assets.url = app.static_url_path
-scss = Bundle('css/styles.scss', 'css/fontello.css', filters='scss', depends='css/*.scss', output='css/all.css')
-assets.register('scss_all', scss)
-
+scss_bundle = Bundle('css/styles.scss', 'css/fontello.css', filters='scss', depends='css/*.scss', output='css/all.css')
+assets.register('scss_all', scss_bundle)
+js_bundle = Bundle('js/*.js', filters='rjsmin', output='js/all.js')
+assets.register('js_all', js_bundle)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
+@app.route('/prefill')
+def prefill():
+    akid = request.values.get('akid')
+    if not akid:
+        return abort(400, "akid param required")
+
+    try:
+        (mailing_id, user_id, token_hash) = akid.split('.')
+    except ValueError:
+        return abort(400, "malformed akid")
+
+    r = requests.get('https://act.sumofus.org/rest/v1/user/%s/' % user_id, auth=app.actionkit_auth)
+    if r.status_code == 200:
+        # double check for valid token
+        if not '.%s.%s' % (user_id, token_hash) == r.json()['token']:
+            abort(403, "invalid akid")
+
+        desired_fields = ['name', 'email', 'phone']
+        d = {}
+        for f in desired_fields:
+            d[f] = r.json().get(f)
+        return jsonify(d)
+    else:
+        return abort(r.status_code, r.message)
+
+
+@app.route('/submit')
+def submit():
+    pass
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    if os.environ.get('FLASK_DEBUG'):
+        app.run(debug=True, use_reloader=True)
+    else:
+        app.run()
