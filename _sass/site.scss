@@ -16,14 +16,22 @@ a {
 	width: 100%;
 }
 
-form .submit {
-	background: #dc6134;
-	color: #ffffff;
-	float: right;
-	font-size: 16px;
-	margin: 10px 0 0 0;
-	padding: 10px 20px;
-	width: auto;
+#phoneForm {
+	border: 1px solid #04ACBE;
+	border-radius: 4px;
+	padding: 25px 40px 25px 40px;
+}
+
+#phoneForm input {
+	height: 48px;
+	font-size: 20px;
+}
+
+#phoneForm button {
+	height: 47px;
+	font-size: 20px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 1px #aaa;
 }
 
 #header {
@@ -85,7 +93,7 @@ form .submit {
 		font-size: 20px;
 		position: absolute;
 		right: 5px;
-		top: 10px;
+		top: 15px;
 	}
 	.error { color: red; }
 	.valid { color: green; }

@@ -67,13 +67,12 @@ $(document).ready(function() {
         }
 
         var data = {
-            campaignId: 'demo',
-            userPhone: phone,
-            zipcode: '00000'
+            campaignId: 2,
+            userPhone: phone
         };
 
         // $.ajax({
-        //     url: 'http://demo.callpower.org/call/create',
+        //     url: 'http://sumofus.callpower.org/call/create',
         //     type: "get",
         //     dataType: "json",
         //     data: data,

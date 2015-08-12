@@ -5,3 +5,9 @@
     display: inline-block;
   }
 }
+
+@media only screen and (max-width: 800px) {
+	#phoneForm input, button {
+		font-size: 14px;
+	}
+}
