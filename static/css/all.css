@@ -1140,11 +1140,16 @@ a {
 }
 
 /* line 19, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+.align-right {
+  text-align: right;
+}
+
+/* line 23, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #header {
   height: 50px;
 }
 
-/* line 23, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 27, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #header a.logo {
   height: 100%;
   display: inline-block;
@@ -1152,7 +1157,7 @@ a {
   position: absolute;
 }
 
-/* line 30, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 34, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #header .tagline {
   display: inline-block;
   left: 125px;
@@ -1163,7 +1168,7 @@ a {
   position: absolute;
 }
 
-/* line 40, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 44, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #mast {
   background: url("/static/img/mast.jpg") no-repeat center center;
   -webkit-background-size: cover;
@@ -1172,16 +1177,16 @@ a {
   background-size: cover;
   min-height: 300px;
 }
-/* line 48, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 52, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #mast .wrapper {
   padding-top: 300px;
 }
-/* line 52, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 56, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #mast .headline {
   padding: 10px 10%;
   background: rgba(0, 0, 0, 0.5);
 }
-/* line 57, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 61, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #mast h2 {
   color: white;
   margin: 0;
@@ -1189,26 +1194,36 @@ a {
   text-align: left;
 }
 
-/* line 65, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 69, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #content {
   padding: 20px 40px 150px 40px;
   background: white;
 }
 
-/* line 70, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 74, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #callForm {
   border: 1px solid #04ACBE;
   border-radius: 4px;
   padding: 25px 40px 25px 40px;
 }
 
-/* line 76, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 80, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+#callForm label {
+  height: 48px;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+/* line 90, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #callForm input {
   height: 48px;
   font-size: 20px;
 }
 
-/* line 81, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 95, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #callForm button {
   height: 47px;
   font-size: 20px;
@@ -1216,43 +1231,43 @@ a {
   text-shadow: 1px 1px 1px #aaa;
 }
 
-/* line 88, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 102, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .input-wrapper {
   position: relative;
 }
-/* line 90, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 104, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .input-wrapper input {
   width: 100%;
 }
-/* line 92, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 106, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .input-wrapper .input-icon {
   font-size: 20px;
   position: absolute;
   right: 5px;
   top: 15px;
 }
-/* line 98, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 112, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .input-wrapper .error {
   color: red;
 }
-/* line 99, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 113, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .input-wrapper .valid {
   color: green;
 }
 
-/* line 102, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 116, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .faq {
   border-top: 1px solid #d0d0d0;
   padding-top: 20px;
 }
 
-/* line 107, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 121, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .script {
   text-align: left;
   font-family: monospace;
 }
 
-/* line 112, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 126, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .share .btn {
   display: inline-block;
   margin: 0 20px;
@@ -1261,28 +1276,28 @@ a {
   height: 60px;
   text-indent: -999em;
 }
-/* line 120, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 134, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .share .btn.facebook {
   background: url("/static/img/share-facebook.png") 0 0 no-repeat;
 }
-/* line 123, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 137, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 .share .btn.twitter {
   background: url("/static/img/share-twitter.png") 0 0 no-repeat;
 }
 
-/* line 128, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 142, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #footer {
   padding: 40px 40px 0 40px;
   border-top: 1px solid #d0d0d0;
 }
 
-/* line 133, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 147, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #footer ul li {
   float: left;
   list-style: none;
 }
 
-/* line 138, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
+/* line 152, /Users/josh/Code/SumOfUs/callforthereef/static/css/site.scss */
 #footer ul li a {
   font-size: 18px;
   font-weight: 700;

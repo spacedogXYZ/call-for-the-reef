@@ -16,6 +16,10 @@ a {
 	width: 100%;
 }
 
+.align-right {
+	text-align: right;
+}
+
 #header {
 	height: 50px;
 }
@@ -71,6 +75,16 @@ a {
 	border: 1px solid #04ACBE;
 	border-radius: 4px;
 	padding: 25px 40px 25px 40px;
+}
+
+#callForm label {
+	height: 48px;
+	font-size: 18px;
+	font-weight: normal;
+	font-style: italic;
+
+	margin-top: 15px;
+	margin-bottom: 0;
 }
 
 #callForm input {
