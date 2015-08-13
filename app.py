@@ -10,7 +10,7 @@ app.ak_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_P
 # assets
 assets = Environment(app)
 assets.url = app.static_url_path
-scss_bundle = Bundle('css/styles.scss', 'css/fontello.css', filters='scss', depends='css/*.scss', output='css/all.css')
+scss_bundle = Bundle('css/styles.scss', 'css/fontello.css', filters=['scss', 'cssmin'], depends='css/*.scss', output='css/all.css')
 assets.register('scss_all', scss_bundle)
 js_bundle = Bundle('js/*.js', filters='rjsmin', output='js/all.js')
 assets.register('js_all', js_bundle)
