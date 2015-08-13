@@ -113,6 +113,10 @@ a {
 	.valid { color: green; }
 }
 
+.help-text {
+	margin-bottom: 10px;
+}
+
 .faq {
 	border-top: 1px solid #d0d0d0; 
 	padding-top: 20px;
@@ -121,6 +125,10 @@ a {
 .script {
 	text-align: left;
 	font-family: monospace;
+}
+
+.row.share {
+	margin-bottom: 20px;
 }
 
 .share .btn {
