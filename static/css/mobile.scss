@@ -1,13 +1,23 @@
 .iphone-hidden { display: none; }
 
-@media only screen and (min-width: 605px) {
+
+@media only screen and (min-width: 480px) {
   .iphone-hidden {
     display: inline-block;
   }
 }
 
 @media only screen and (max-width: 800px) {
-	#callForm input, button {
-		font-size: 14px;
+	#callForm {
+	  	border: 0;
+	  	padding: 0;
+
+	  	label {
+	  		height: 24px;
+	  	}
+
+		input, button {
+			font-size: 14px;
+		}
 	}
 }
