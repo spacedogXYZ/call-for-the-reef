@@ -47,6 +47,20 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+function showOverlay() {
+    $('.overlay').css('display', 'table');
+        setTimeout(function() {
+            $('.overlay').addClass('visible');
+            setTimeout(function() {
+                $('.overlay .inner').addClass('visible');
+            }, 10);
+        }, 100);
+
+    $('.overlay .close').click(function() {
+        $('.overlay').css('display','none');
+    });
+}
+
 var trackEvent = function(ev) {
     window['optimizely'] = window['optimizely'] || [];
     window.optimizely.push(["trackEvent", ev]);
@@ -86,36 +100,35 @@ $(document).ready(function() {
 
         $('input#id_phone').trigger('blur');
         var phone = cleanPhoneAUS($('input#id_phone').val());
+        var allowIntl = $.QueryString['allowIntl'];
+        var validPhone = phone && (checkPhoneInputAUS($('input#id_phone')) || allowIntl);
 
-        if (!phone || !checkPhoneInputAUS($('input#id_phone'))) {
+        if (!validPhone) {
+            console.error('invalid phone');
             return $('input#id_phone').siblings('.help-text').text('Please enter an Australian phone number');
         }
 
-        $.ajax({
-            url: '/submit',
-            type: 'post',
-            dataType: 'json',
-            data: $('#callForm').serialize(),
-            success: function(response) {
+        console.log('make the call!');
+        var callData = {
+            'campaignId': 1,
+            'userPhone': phone,
+            'userLocation': 'AU'
+        };
+        $.getJSON('http://demo.callpower.org/call/create', callData,
+            function(response) {
                 console.log(response);
                 trackEvent('call-placed');
-            },
-            error: function(xhr, status, message) {
-                console.error(status, message);
+                showOverlay();
+
+                $.post('/submit', $('#callForm').serialize(),
+                    function(response) {
+                        console.log(response);
+                        trackEvent('ak-submit');
+                    }
+                );
             }
-        });
+        );
 
-        $('.overlay').css('display', 'table');
-        setTimeout(function() {
-            $('.overlay').addClass('visible');
-            setTimeout(function() {
-                $('.overlay .inner').addClass('visible');
-            }, 10);
-        }, 100);
+        
     });
-
-    $('.overlay .close').click(function() {
-      $('.overlay').css('display','none');
-    });
-    
 });

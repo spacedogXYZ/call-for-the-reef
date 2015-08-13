@@ -5,9 +5,7 @@ from flask import Flask, request, abort, jsonify, render_template
 from flask.ext.assets import Environment, Bundle
 
 app = Flask(__name__)
-
-# actionkit
-app.actionkit_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_PASSWORD'))
+app.ak_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_PASSWORD'))
 
 # assets
 assets = Environment(app)
@@ -19,11 +17,13 @@ assets.register('js_all', js_bundle)
 
 @app.route('/')
 def index():
+    # main page
     return render_template('index.html')
 
 
-@app.route('/prefill')
+@app.route('/prefill', methods=['GET'])
 def prefill():
+    # prefill user info from akid
     akid = request.values.get('akid')
     if not akid:
         return abort(400, "akid param required")
@@ -33,7 +33,7 @@ def prefill():
     except ValueError:
         return abort(400, "malformed akid")
 
-    r = requests.get('https://act.sumofus.org/rest/v1/user/%s/' % user_id, auth=app.actionkit_auth)
+    r = requests.get('https://act.sumofus.org/rest/v1/user/%s/' % user_id, auth=app.ak_auth)
     data = r.json()
     if r.status_code == 200:
         # double check for valid token
@@ -48,12 +48,21 @@ def prefill():
             output['name'] = '{first_name} {last_name}'.format(**output)
         return jsonify(output)
     else:
-        return abort(r.status_code, r.message)
+        return abort(r.status_code, r.text)
 
 
-@app.route('/submit')
+@app.route('/submit', methods=['POST'])
 def submit():
-    pass
+    # save data back to ak
+    akData = {}
+    for f in ['page', 'source', 'name', 'email', 'phone']:
+        akData[f] = request.values.get(f)
+    print "submitting", akData
+    r = requests.post('https://act.sumofus.org/rest/v1/action/', akData, auth=app.ak_auth)
+    if not r.status_code == 200:
+        abort(r.status_code, r.text)
+
+    return jsonify({'success': True})
 
 if __name__ == '__main__':
     if os.environ.get('FLASK_DEBUG'):
