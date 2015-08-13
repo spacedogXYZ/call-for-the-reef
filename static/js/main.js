@@ -17,27 +17,28 @@ function checkPhoneInputAUS(param) {
     // let this function be used for events and direct inputs
     input = param.target ? $(param.target): param;
 
-    input.next('.input-icon')
+    var inputIcon = input.siblings('.input-icon');
+    inputIcon
         .removeClass('icon-mobile')
         .removeClass('icon-phone')
         .removeClass('icon-help-circled')
         .removeClass('error')
         .removeClass('valid');
-    input.siblings('.help-text').text('');
+    var helpText = input.siblings('.help-text').text('');
 
     var val = cleanPhoneAUS(input.val());
     var isMobile = /^04[0-9, ]{1,10}$/.test(val);
     var isLandline = /^0[^4][0-9, ]{1,9}$/.test(val);
 
     if (isMobile) {
-        input.next('.input-icon').addClass('icon-mobile').addClass('valid');
+        inputIcon.addClass('icon-mobile').addClass('valid');
         return true;
     } else if (isLandline) {
-        input.next('.input-icon').addClass('icon-phone').addClass('valid');
+        inputIcon.addClass('icon-phone').addClass('valid');
         return true;
     } else {
-        input.next('.input-icon').addClass('icon-help-circled').addClass('error');
-        input.siblings('.help-text').text('Please ensure this is a valid Australian phone number, with area code.');
+        inputIcon.addClass('icon-help-circled').addClass('error');
+        helpText.text('Please ensure this is a valid Australian phone number, with area code.');
         return false;
     }
 }
@@ -45,6 +46,27 @@ function checkPhoneInputAUS(param) {
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+function checkEmail(param) {
+    input = param.target ? $(param.target): param;
+
+    var inputIcon = input.siblings('.input-icon');
+    inputIcon
+        .removeClass('icon-help-circled')
+        .removeClass('icon-ok-circled')
+        .removeClass('error')
+        .removeClass('valid');
+    var helpText = input.siblings('.help-text').text('');
+
+    if (validateEmail(input.val())) {
+            inputIcon.addClass('icon-ok-circled').addClass('valid');
+            return true;
+    } else {
+            inputIcon.addClass('icon-help-circled').addClass('error');
+            helpText.text('Please enter your email');
+            return false;
+    }
 }
 
 function showOverlay() {
@@ -74,7 +96,9 @@ $(document).ready(function() {
     if (akid !== undefined && akid !== '') {
         $.getJSON('/prefill', {akid: akid}, function(data) {
             for (var field in data) {
-                $('input[name='+field+']').val(data[field]);
+                if (data[field]) {
+                    $('input[name='+field+']').val(data[field]).trigger('blur');
+                }
             }
         });
     }
@@ -93,6 +117,7 @@ $(document).ready(function() {
         ]
     });
     $('input#id_phone').blur(checkPhoneInputAUS);
+    $('input#id_email').blur(checkEmail);
 
     // call form submit
     $('#callForm').submit(function(e) {
@@ -103,12 +128,13 @@ $(document).ready(function() {
         var allowIntl = $.QueryString['allowIntl'];
         var validPhone = phone && (checkPhoneInputAUS($('input#id_phone')) || allowIntl);
 
-        if (!validPhone) {
-            console.error('invalid phone');
-            return $('input#id_phone').siblings('.help-text').text('Please enter an Australian phone number');
-        }
+        $('input#id_email').trigger('blur');
+        var validEmail = checkEmail($('input#id_email'));
 
-        console.log('make the call!');
+        if (!validPhone || !validEmail) {
+            return false;
+        }
+        
         var callData = {
             'campaignId': 1,
             'userPhone': phone,
@@ -119,6 +145,9 @@ $(document).ready(function() {
                 console.log(response);
                 trackEvent('call-placed');
                 showOverlay();
+                $('button[type="submit"]').html('Thanks <i class="icon-ok-circled">')
+                    .addClass('complete')
+                    .attr('disabled', 'disabled');
 
                 $.post('/submit', $('#callForm').serialize(),
                     function(response) {
@@ -128,6 +157,7 @@ $(document).ready(function() {
                 );
             }
         );
+        $('button[type="submit"]').html('Calling <i class="icon-spin animate-spin">');
 
         
     });

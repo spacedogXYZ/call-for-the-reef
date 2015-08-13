@@ -98,6 +98,11 @@ a {
 	text-shadow: 1px 1px 1px #aaa;
 }
 
+#callForm button.complete {
+	background-color: green;
+	border-color: green;
+}
+
 .input-wrapper {
 	position: relative;
 	input { width: 100%; }
