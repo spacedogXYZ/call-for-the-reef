@@ -1,2 +1,4 @@
 _site
 .sass-cache
+static/.webassets-cache
+*.pyc
