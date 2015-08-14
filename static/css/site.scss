@@ -137,18 +137,11 @@ a {
 
 .share .btn {
 	display: inline-block;
-	margin: 0 20px;
+	margin: 0 10px;
 	padding: 0;
 	width: 200px;
 	height: 60px;
-	text-indent: -999em;
-
-	&.facebook {
-		background: url('/static/img/share-facebook.png') 0 0 no-repeat;
-	}
-	&.twitter { 
-		background: url('/static/img/share-twitter.png') 0 0 no-repeat;
-	}
+	a { text-shadow: none; }
 }
 
 #footer {
