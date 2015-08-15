@@ -140,7 +140,7 @@ $(document).ready(function() {
             'userPhone': phone,
             'userLocation': 'AU'
         };
-        $.getJSON('http://demo.callpower.org/call/create', callData,
+        $.getJSON('http://sumofus.callpower.org/call/create', callData,
             function(response) {
                 console.log(response);
                 trackEvent('call-placed');
