@@ -124,8 +124,9 @@ $(document).ready(function() {
         e.preventDefault();
 
         $('input#id_phone').trigger('blur');
-        var phone = cleanPhoneAUS($('input#id_phone').val());
+        var userPhone = cleanPhoneAUS($('input#id_phone').val());
         var allowIntl = $.QueryString['allowIntl'];
+        var userLocation = allowIntl ? 'US': 'AU';
         var validPhone = phone && (checkPhoneInputAUS($('input#id_phone')) || allowIntl);
 
         $('input#id_email').trigger('blur');
@@ -137,8 +138,8 @@ $(document).ready(function() {
         
         var callData = {
             'campaignId': 1,
-            'userPhone': phone,
-            'userLocation': 'AU'
+            'userPhone': userPhone,
+            'userLocation': userLocation
         };
         $.getJSON('http://sumofus.callpower.org/call/create', callData,
             function(response) {
