@@ -6,7 +6,7 @@ from flask.ext.assets import Environment, Bundle
 
 app = Flask(__name__)
 app.ak_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_PASSWORD'))
-
+app.ak_base = 'https://act.sumofus.org'
 # assets
 assets = Environment(app)
 assets.url = app.static_url_path
@@ -34,13 +34,20 @@ def prefill():
     except ValueError:
         return abort(400, "malformed akid")
 
-    r = requests.get('https://act.sumofus.org/rest/v1/user/%s/' % user_id, auth=app.ak_auth)
+    user_url = '%s/rest/v1/user/%s' % (app.ak_base, user_id)
+    r = requests.get(user_url, auth=app.ak_auth)
     data = r.json()
     if r.status_code == 200:
         # double check for valid token
         if not '.%s.%s' % (user_id, token_hash) == r.json()['token']:
             abort(403, "invalid akid")
 
+        phones = data.get('phones', [])
+        if phones[0]:
+            phone_url = '%s%s' % (app.ak_base, str(phones[0]))  # earlier response is root-relative
+            p = requests.get(phone_url, auth=app.ak_auth)
+            if p.status_code == 200:
+                data['phone'] = p.json()['normalized_phone']
         desired_fields = ['first_name', 'last_name', 'email', 'phone']
         output = {}
         for f in desired_fields:
@@ -56,11 +63,10 @@ def prefill():
 def submit():
     # save data back to ak
     akData = {}
-    for f in ['page', 'source', 'name', 'email', 'phone']:
+    for f in ['page', 'source', 'name', 'email', 'phone', 'phone_type']:
         akData[f] = request.values.get(f)
-    print "submitting", akData
     r = requests.post('https://act.sumofus.org/rest/v1/action/', akData, auth=app.ak_auth)
-    if not r.status_code == 200:
+    if not str(r.status_code).startswith('2'):
         abort(r.status_code, r.text)
 
     return jsonify({'success': True})

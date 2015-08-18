@@ -32,9 +32,11 @@ function checkPhoneInputAUS(param) {
 
     if (isMobile) {
         inputIcon.addClass('icon-mobile').addClass('valid');
+        $('input[name=phone_type').val('mobile');
         return true;
     } else if (isLandline) {
         inputIcon.addClass('icon-phone').addClass('valid');
+        $('input[name=phone_type').val('home');
         return true;
     } else {
         inputIcon.addClass('icon-help-circled').addClass('error');
@@ -127,7 +129,7 @@ $(document).ready(function() {
         var userPhone = cleanPhoneAUS($('input#id_phone').val());
         var allowIntl = $.QueryString['allowIntl'];
         var userLocation = allowIntl ? 'US': 'AU';
-        var validPhone = phone && (checkPhoneInputAUS($('input#id_phone')) || allowIntl);
+        var validPhone = userPhone && (checkPhoneInputAUS($('input#id_phone')) || allowIntl);
 
         $('input#id_email').trigger('blur');
         var validEmail = checkEmail($('input#id_email'));
