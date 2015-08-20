@@ -3,10 +3,13 @@ import requests
 
 from flask import Flask, request, abort, jsonify, render_template
 from flask.ext.assets import Environment, Bundle
+from flask.ext.compress import Compress
+from flask.ext.cache import Cache
 
 app = Flask(__name__)
 app.ak_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_PASSWORD'))
 app.ak_base = 'https://act.sumofus.org'
+
 # assets
 assets = Environment(app)
 assets.url = app.static_url_path
@@ -15,7 +18,14 @@ scss_bundle = Bundle('css/styles.scss', 'css/fontello.css', 'css/animation.css',
 assets.register('scss_all', scss_bundle)
 js_bundle = Bundle('js/*.js', filters='rjsmin', output='js/all.js')
 assets.register('js_all', js_bundle)
+Compress(app)
 
+#cache
+cache = Cache(config={'CACHE_TYPE': 'simple'})
+cache.init_app(app)
+
+
+@cache.cached(timeout=60)
 @app.route('/')
 def index():
     # main page
