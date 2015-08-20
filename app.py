@@ -1,31 +1,11 @@
-import os
+from flask import request, abort, jsonify, render_template
 import requests
 
-from flask import Flask, request, abort, jsonify, render_template
-from flask.ext.assets import Environment, Bundle
-from flask.ext.compress import Compress
-from flask.ext.cache import Cache
-
-app = Flask(__name__)
-app.ak_auth = (os.environ.get('ACTIONKIT_USERNAME'), os.environ.get('ACTIONKIT_PASSWORD'))
-app.ak_base = 'https://act.sumofus.org'
-
-# assets
-assets = Environment(app)
-assets.url = app.static_url_path
-scss_bundle = Bundle('css/styles.scss', 'css/fontello.css', 'css/animation.css',
-    filters=['scss', 'cssmin'], depends='css/*.scss', output='css/all.css')
-assets.register('scss_all', scss_bundle)
-js_bundle = Bundle('js/*.js', filters='rjsmin', output='js/all.js')
-assets.register('js_all', js_bundle)
-Compress(app)
-
-#cache
-cache = Cache(config={'CACHE_TYPE': 'simple'})
-cache.init_app(app)
+from config import create_app
+app = create_app(__name__)
 
 
-@cache.cached(timeout=60)
+@app.cache.cached(timeout=60)
 @app.route('/')
 def index():
     # main page
@@ -44,8 +24,8 @@ def prefill():
     except ValueError:
         return abort(400, "malformed akid")
 
-    user_url = '%s/rest/v1/user/%s' % (app.ak_base, user_id)
-    r = requests.get(user_url, auth=app.ak_auth)
+    user_url = '%s/rest/v1/user/%s' % (app.config['AK_BASE'], user_id)
+    r = requests.get(user_url, auth=app.config['AK_AUTH'])
     data = r.json()
     if r.status_code == 200:
         # double check for valid token
@@ -54,8 +34,8 @@ def prefill():
 
         phones = data.get('phones', [])
         if phones[0]:
-            phone_url = '%s%s' % (app.ak_base, str(phones[0]))  # earlier response is root-relative
-            p = requests.get(phone_url, auth=app.ak_auth)
+            phone_url = '%s%s' % (app.config['AK_BASE'], str(phones[0]))  # earlier response is root-relative
+            p = requests.get(phone_url, auth=app.config['AK_AUTH'])
             if p.status_code == 200:
                 data['phone'] = p.json()['normalized_phone']
         desired_fields = ['first_name', 'last_name', 'email', 'phone']
@@ -75,14 +55,15 @@ def submit():
     akData = {}
     for f in ['page', 'source', 'name', 'email', 'phone', 'phone_type']:
         akData[f] = request.values.get(f)
-    r = requests.post('https://act.sumofus.org/rest/v1/action/', akData, auth=app.ak_auth)
+    action_url = '%s/rest/v1/action' % app.config['AK_BASE']
+    r = requests.post(action_url, akData, auth=app.config['AK_AUTH'])
     if not str(r.status_code).startswith('2'):
         abort(r.status_code, r.text)
 
     return jsonify({'success': True})
 
 if __name__ == '__main__':
-    if os.environ.get('FLASK_DEBUG'):
+    if app.config['DEBUG']:
         app.run(debug=True, use_reloader=True)
     else:
         app.run()
