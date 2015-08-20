@@ -19,6 +19,7 @@ class ProductionConfig(DefaultConfig):
     DEBUG = False
     CACHE_TYPE = 'simple'
     CDN_DOMAIN = 'd21j2a4znzg4av.cloudfront.net'
+    FLASK_ASSETS_USE_CDN = True
 
 
 def create_app(name=None):
