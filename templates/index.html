@@ -18,10 +18,10 @@
     <title>Call For the Reef</title>
 
     {% assets "scss_all" %}
-    <link rel="stylesheet" type=text/css href="{{ ASSET_URL }}">
+    <link rel="stylesheet" type="text/css" href="{{FLASK_CDN}}{{ASSET_URL}}">
     {% endassets %}
     {% assets "js_all" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    <script type="text/javascript" src="{{FLASK_CDN}}{{ASSET_URL}}"></script>
     {% endassets %}
     <script src="//c.shpg.org/99/sp.js"></script>
 
@@ -34,7 +34,7 @@
     <div id="header" class="section">
       <div class="container">
         <a href="http://sumofus.org/" class="logo">
-          <img src="/static/img/logo-shadow.png" alt="SumOfUs">
+          <img src="{{FLASK_CDN}}/static/img/logo-shadow.png" alt="SumOfUs">
         </a>
         <p class="tagline iphone-hidden">Fighting for people over profits</p>
       </div>

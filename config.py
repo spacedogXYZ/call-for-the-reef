@@ -56,4 +56,12 @@ def create_app(name=None):
     cdn = CDN()
     cdn.init_app(app)
 
+    # workaround flask-assets / flask-cdn integration
+    if app.config.get('CDN_HTTPS'):
+        cdn_scheme = 'https'
+    else:
+        cdn_scheme = 'http'
+    if app.config.get('FLASK_ASSETS_USE_CDN') and app.config.get('CDN_DOMAIN'):
+        app.jinja_env.globals['FLASK_CDN'] = '%s://%s' % (cdn_scheme, app.config['CDN_DOMAIN'])
+
     return app
