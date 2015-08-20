@@ -24,10 +24,13 @@ class ProductionConfig(DefaultConfig):
 
 def create_app(name=None):
     app = Flask(name)
-    app.config.from_object(DefaultConfig)
 
     if os.environ.get('PRODUCTION'):
         app.config.from_object(ProductionConfig)
+        print "running with ProductionConfig"
+    else:
+        app.config.from_object(DefaultConfig)
+        print "running with DefaultConfig"
 
     # assets
     assets = Environment(app)

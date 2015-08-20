@@ -63,7 +63,4 @@ def submit():
     return jsonify({'success': True})
 
 if __name__ == '__main__':
-    if app.config['DEBUG']:
-        app.run(debug=True, use_reloader=True)
-    else:
-        app.run()
+    app.run(debug=app.config['DEBUG'], use_reloader=app.config['DEBUG'])
