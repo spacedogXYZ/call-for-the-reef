@@ -9,7 +9,7 @@ app = create_app(__name__)
 @app.route('/')
 def index():
     # main page
-    return render_template('index.html')
+    return render_template('index.html', akid=request.values.get('akid'))
 
 
 @app.route('/prefill', methods=['GET'])
