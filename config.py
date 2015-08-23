@@ -6,6 +6,8 @@ from flask.ext.compress import Compress
 from flask.ext.cache import Cache
 from flask.ext.cdn import CDN
 
+from raven.contrib.flask import Sentry
+
 
 class DefaultConfig(object):
     DEBUG = True
@@ -20,6 +22,7 @@ class ProductionConfig(DefaultConfig):
     CACHE_TYPE = 'simple'
     CDN_DOMAIN = 'd21j2a4znzg4av.cloudfront.net'
     FLASK_ASSETS_USE_CDN = True
+    SENTRY_DSN = os.environ.get('SENTRY_DSN')
 
 
 def create_app(name=None):
@@ -31,6 +34,11 @@ def create_app(name=None):
     else:
         app.config.from_object(DefaultConfig)
         print "running with DefaultConfig"
+
+    # sentry
+    if app.config.get('SENTRY_DSN'):
+        sentry = Sentry()
+        sentry.init_app(app)
 
     # assets
     assets = Environment(app)
