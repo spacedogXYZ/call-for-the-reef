@@ -9,6 +9,7 @@ body {
 
 a {
 	text-decoration: none;
+	z-index: 10;
 }
 
 .section {
@@ -50,18 +51,40 @@ a {
 
 	.wrapper {
 		padding-top: 300px;
+		width: 100%;
 	}
 
 	.headline {
-		padding: 10px 10%;
 		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.wrapper-container {
+		max-width: 960px;
+		padding: 10px 40px;
+		margin: 0 auto;
 	}
 
 	h2 {
 		color: white;
-		margin: 0;
 		text-shadow: 1px 1px 1px #555;
 		text-align: left;
+		margin-bottom: 0;
+	}
+
+	&.hide-image {
+		background: none;
+		min-height: 100px;
+		.wrapper {
+			padding-top: 0;
+		}
+		.headline {
+			position: relative;
+			min-height: 75px;
+		}
+		h2 {
+			position: absolute;
+			left: 125px;
+		}
 	}
 }
 
