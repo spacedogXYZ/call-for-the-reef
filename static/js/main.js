@@ -77,6 +77,11 @@ function showOverlay() {
             $('.overlay').addClass('visible');
             setTimeout(function() {
                 $('.overlay .inner').addClass('visible');
+
+                $('.overlay .inner.scroll').jScrollPane({
+                    showArrows: true
+                });
+
             }, 10);
         }, 100);
 

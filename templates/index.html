@@ -115,17 +115,20 @@
 
       <div class="overlay">
         <div class="modal">
-          <div class="inner">
+          <div class="inner scroll">
+            <div class="content">
               <a class="btn close">&times;</a>
               {% include '_includes/call_modal_top.html' %}
               {% include '_includes/call_script.html' %}
 
-              <h5>Tell us how it went!<a href="http://action.sumofus.org/a/Call-hunt-Reef/{%if akid%}?akid={{akid}}{%endif%}"> Click here to send us a message.</a></h5>
+              <h5>Tell us how it went!<br/>
+              <a href="http://action.sumofus.org/a/Call-hunt-Reef/{%if akid%}?akid={{akid}}{%endif%}"> Click here to send us a message.</a></h5>
 
               <div class="row share">
                   <div class='btn sp_15245 sp_fb_large' ></div>
                   <div class='btn sp_15246 sp_tw_large' ></div>
               </div>
+            </div>
           </div>
         </div>
       </div>
