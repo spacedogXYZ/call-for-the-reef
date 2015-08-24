@@ -150,7 +150,6 @@ $(document).ready(function() {
         };
         $.getJSON('http://sumofus.callpower.org/call/create', callData,
             function(response) {
-                console.log(response);
                 trackEvent('call-placed');
                 showOverlay();
                 $('button[type="submit"]').html('Thanks <i class="icon-ok-circled">')
@@ -159,7 +158,6 @@ $(document).ready(function() {
 
                 $.post('/submit', $('#callForm').serialize(),
                     function(response) {
-                        console.log(response);
                         trackEvent('ak-submit');
                     }
                 );
