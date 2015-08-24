@@ -1,5 +1,15 @@
 .iphone-hidden { display: none; }
 
+@media only screen and (max-width: 480px) {
+	#header { height: 0; }
+	#mast.hide-image {
+		h2 {
+			left: 140px;
+			font-size: 2.75rem;
+			max-width: 200px;
+		}
+	}
+}
 
 @media only screen and (min-width: 480px) {
   .iphone-hidden {
