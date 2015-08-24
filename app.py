@@ -25,7 +25,7 @@ def prefill():
         return abort(400, "malformed akid")
 
     user_url = '%s/rest/v1/user/%s' % (app.config['AK_BASE'], user_id)
-    r = requests.get(user_url, auth=app.config['AK_AUTH'])
+    r = requests.get(user_url, auth=app.config['AK_AUTH'], timeout=(3.05, 20))
     data = r.json()
     if r.status_code == 200:
         # double check for valid token
@@ -56,7 +56,7 @@ def submit():
     for f in ['page', 'source', 'name', 'email', 'phone', 'phone_type']:
         akData[f] = request.values.get(f)
     action_url = '%s/rest/v1/action' % app.config['AK_BASE']
-    r = requests.post(action_url, akData, auth=app.config['AK_AUTH'])
+    r = requests.post(action_url, akData, auth=app.config['AK_AUTH'], timeout=(3.05, 20))
     if not str(r.status_code).startswith('2'):
         abort(r.status_code, r.text)
 
