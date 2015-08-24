@@ -22,7 +22,8 @@ class ProductionConfig(DefaultConfig):
     CACHE_TYPE = 'simple'
     CDN_DOMAIN = 'd21j2a4znzg4av.cloudfront.net'
     FLASK_ASSETS_USE_CDN = True
-    SENTRY_DSN = os.environ.get('SENTRY_DSN')
+    SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
+    SENTRY_TRANSPORT = 'gevent'
 
 
 def create_app(name=None):

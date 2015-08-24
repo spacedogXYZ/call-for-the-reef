@@ -8,6 +8,8 @@ MarkupSafe==0.23
 Werkzeug==0.10.4
 blinker==1.4
 cssmin==0.2.0
+gevent==1.0.2
+greenlet==0.4.7
 gunicorn==19.3.0
 itsdangerous==0.24
 pyparsing==2.0.3

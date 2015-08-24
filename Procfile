@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file -
+web: gunicorn -k gevent_wsgi wsgi:app --log-file -
