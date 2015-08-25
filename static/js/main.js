@@ -32,11 +32,11 @@ function checkPhoneInputAUS(param) {
 
     if (isMobile) {
         inputIcon.addClass('icon-mobile').addClass('valid');
-        $('input[name=phone_type').val('mobile');
+        $('input[name=phone_type]').val('mobile');
         return true;
     } else if (isLandline) {
         inputIcon.addClass('icon-phone').addClass('valid');
-        $('input[name=phone_type').val('home');
+        $('input[name=phone_type]').val('home');
         return true;
     } else {
         inputIcon.addClass('icon-help-circled').addClass('error');
