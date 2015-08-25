@@ -23,7 +23,6 @@ class ProductionConfig(DefaultConfig):
     CDN_DOMAIN = 'd21j2a4znzg4av.cloudfront.net'
     FLASK_ASSETS_USE_CDN = True
     SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
-    SENTRY_TRANSPORT = 'gevent'
 
 
 def create_app(name=None):
@@ -40,6 +39,7 @@ def create_app(name=None):
     if app.config.get('SENTRY_DSN'):
         sentry = Sentry()
         sentry.init_app(app)
+        app.sentry = sentry
 
     # assets
     assets = Environment(app)
