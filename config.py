@@ -21,7 +21,7 @@ class ProductionConfig(DefaultConfig):
     DEBUG = False
     CACHE_TYPE = 'simple'
     CDN_DOMAIN = 'd21j2a4znzg4av.cloudfront.net'
-    FLASK_ASSETS_USE_CDN = True
+    FLASK_ASSETS_USE_CDN = False
     SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
 
 
