@@ -1,6 +1,6 @@
-function cleanPhoneAUS(num) {
+function cleanPhoneUS(num) {
     // remove country code
-    num = num.replace("+61", "");
+    num = num.replace("+1", "");
     // remove spaces, parens
     num = num.replace(/\s/g, '').replace(/\(/g, '').replace(/\)/g, '');
     // remove plus, dash
@@ -13,7 +13,7 @@ function cleanPhoneAUS(num) {
     return num;
 }
 
-function checkPhoneInputAUS(param) {
+function checkPhoneInputUS(param) {
     // let this function be used for events and direct inputs
     input = param.target ? $(param.target): param;
 
@@ -26,21 +26,16 @@ function checkPhoneInputAUS(param) {
         .removeClass('valid');
     var helpText = input.siblings('.help-text').text('');
 
-    var val = cleanPhoneAUS(input.val());
-    var isMobile = /^04[0-9, ]{1,10}$/.test(val);
-    var isLandline = /^0[^4][0-9, ]{1,9}$/.test(val);
+    var val = cleanPhoneUS(input.val());
+    var isValid = /^[0-9,/(/) ]{1,10}$/.test(val);
 
-    if (isMobile) {
-        inputIcon.addClass('icon-mobile').addClass('valid');
-        $('input[name=phone_type]').val('mobile');
-        return true;
-    } else if (isLandline) {
+    if (isValid) {
         inputIcon.addClass('icon-phone').addClass('valid');
         $('input[name=phone_type]').val('home');
         return true;
     } else {
         inputIcon.addClass('icon-help-circled').addClass('error');
-        helpText.text('Please ensure this is a valid Australian phone number, with area code.');
+        helpText.text('Please ensure this is a valid US phone number with area code.');
         return false;
     }
 }
@@ -115,15 +110,11 @@ $(document).ready(function() {
         $('div.faq').slideToggle();
     });
 
-    // live AUS phone formatter
+    // live US phone formatter
     $('input#id_phone').formatter({
-      'patterns': [
-            { '^04[0-9, ]{1,9}$': '{{9999}} {{999}} {{999}}' },
-            { '^0[^4][0-9, ]{1,9}$': '({{99}}) {{9999}} {{9999}}' },
-            { '*': '{{**********}}' },
-        ]
+      'pattern': '({{999}})-{{999}}-{{9999}}',
     });
-    $('input#id_phone').blur(checkPhoneInputAUS);
+    $('input#id_phone').blur(checkPhoneInputUS);
     $('input#id_email').blur(checkEmail);
 
     // call form submit
@@ -131,10 +122,9 @@ $(document).ready(function() {
         e.preventDefault();
 
         $('input#id_phone').trigger('blur');
-        var userPhone = cleanPhoneAUS($('input#id_phone').val());
-        var allowIntl = $.QueryString['allowIntl'];
-        var userCountry = allowIntl ? 'US': 'AU';
-        var validPhone = userPhone && (checkPhoneInputAUS($('input#id_phone')) || allowIntl);
+        var userPhone = cleanPhoneUS($('input#id_phone').val());
+        var userCountry = 'US';
+        var validPhone = userPhone && checkPhoneInputUS($('input#id_phone'));
 
         $('input#id_email').trigger('blur');
         var validEmail = checkEmail($('input#id_email'));
@@ -144,7 +134,7 @@ $(document).ready(function() {
         }
         
         var callData = {
-            'campaignId': 1,
+            'campaignId': 2,
             'userPhone': userPhone,
             'userCountry': userCountry
         };
