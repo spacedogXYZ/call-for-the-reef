@@ -30,10 +30,13 @@ def prefill():
     except requests.Timeout:
         app.sentry.captureException()
         return jsonify({'success': False, 'message': 'ActionKit timeout.'})
-    data = r.json()
+
     if r.status_code == 200:
+        # decode response
+        data = r.json()
+
         # double check for valid token
-        if not '.%s.%s' % (user_id, token_hash) == r.json()['token']:
+        if not '.%s.%s' % (user_id, token_hash) == data['token']:
             abort(403, "invalid akid")
 
         phones = data.get('phones', [])
