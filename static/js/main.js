@@ -141,6 +141,7 @@ $(document).ready(function() {
         $.getJSON('http://sumofus.callpower.org/call/create', callData,
             function(response) {
                 trackEvent('call-placed');
+                $('.script').html(response.script);
                 showOverlay();
                 $('button[type="submit"]').html('Thanks <i class="icon-ok-circled">')
                     .addClass('complete')
