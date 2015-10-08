@@ -40,7 +40,7 @@ def prefill():
             abort(403, "invalid akid")
 
         phones = data.get('phones', [])
-        if phones[0]:
+        if phones and phones[0]:
             phone_url = '%s%s' % (app.config['AK_BASE'], str(phones[0]))  # earlier response is root-relative
             p = requests.get(phone_url, auth=app.config['AK_AUTH'])
             if p.status_code == 200:
